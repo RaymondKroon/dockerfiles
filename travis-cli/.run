@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+travis() {
+    mkdir -p $HOME/.travis
+    docker run --rm -it \
+            -v $HOME/.travis:/home/user \
+            -v $PWD:/home/user/app \
+            --name travis-cli \
+            ${DOCKER_REPO_PREFIX}/travis-cli "$@"
+}

@@ -1,8 +1,6 @@
 #!/usr/bin/env bash
 
-set -e
-
-DOCKER_REPO_PREFIX=${DOCKER_REPO_PREFIX:-rayray}
+export DOCKER_REPO_PREFIX=${DOCKER_REPO_PREFIX:-rayray}
 pushd "$(dirname "$0")" > /dev/null
 
 #

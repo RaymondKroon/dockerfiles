@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 
 qgis() {
+    mkdir -p $HOME/.qgis
+
     docker run --rm -it \
             -v $HOME/.qgis:/home/user \
             -v $PWD:/home/user/app \
