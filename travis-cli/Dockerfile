@@ -1,6 +1,8 @@
 FROM ruby:alpine
 MAINTAINER Raymond Kroon <raymond@k3n.nl>
 
+ENV TRAVIS_VERSION 1.8.2
+
 RUN apk add --no-cache \
     build-base \
     git && \

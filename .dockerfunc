@@ -25,3 +25,5 @@ for run in $(find . -name ".run"); do
 echo "loading $run"
 source $run;
 done
+
+popd > /dev/null
