@@ -1,0 +1,29 @@
+#!/usr/bin/env bash
+
+set -e
+
+DOCKER_REPO_PREFIX=${DOCKER_REPO_PREFIX:-rayray}
+pushd "$(dirname "$0")" > /dev/null
+
+#
+# Helper Functions
+#
+dcleanup(){
+	docker rm $(docker ps -aq 2>/dev/null) 2>/dev/null
+	docker rm -v $(docker ps --filter status=exited -q 2>/dev/null) 2>/dev/null
+	docker rmi $(docker images --filter dangling=true -q 2>/dev/null) 2>/dev/null
+}
+
+del_stopped(){
+	local name=$1
+	local state=$(docker inspect --format "{{.State.Running}}" $name 2>/dev/null)
+
+	if [[ "$state" == "false" ]]; then
+		docker rm $name
+	fi
+}
+
+for run in $(find . -name ".run"); do
+echo "loading $run"
+source $run;
+done

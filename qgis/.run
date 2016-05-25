@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+
+qgis() {
+    docker run --rm -it \
+            -v $HOME/.qgis:/home/user \
+            -v $PWD:/home/user/app \
+            -v /etc/localtime:/etc/localtime:ro \
+            -v /tmp/.X11-unix:/tmp/.X11-unix \
+            -e DISPLAY=unix$DISPLAY \
+            --name qgis \
+            ${DOCKER_REPO_PREFIX}/qgis
+}
