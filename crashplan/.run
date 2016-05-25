@@ -1,0 +1,26 @@
+#!/usr/bin/env bash
+
+start_crashplan_engine() {
+
+docker run -d --restart\
+  --name crashplan \
+  -e TZ \
+  --volume $HOME/.crashplan:/var/crashplan \
+  --volume $HOME:/storage \
+  ${DOCKER_REPO_PREFIX}/crashplan:latest /crash/run-engine.sh
+}
+
+crashplan() {
+
+docker run --rm -ti \
+    --name crashplan-desktop \
+    --net container:crashplan \
+    -e TZ \
+    -v /tmp/.X11-unix:/tmp/.X11-unix \
+    -e DISPLAY=unix$DISPLAY \
+    -e XAUTHORITY=/.Xauthority \
+    -v ~/.Xauthority:/.Xauthority:ro \
+    --volume $HOME/.crashplan/settings:/var/crashplan \
+    --volume $HOME:/storage \
+    ${DOCKER_REPO_PREFIX}/crashplan:latest /crash/run-desktop.sh
+}
